@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const { member_type_enums, member_status_enums } = require("../lib/config")
 
-const memberSchema = new mongoose.Schema({
+const memberSchema = new mongoose.Schema ({
   mb_nick: {
     type: String,
     required: true,
@@ -81,7 +81,7 @@ const memberSchema = new mongoose.Schema({
     required: false,
     default: 0
   },
-  {timestamps: true}  //ceratedAt va updatedAt
+   
 
  
 });
