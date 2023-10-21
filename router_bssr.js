@@ -1,6 +1,7 @@
 const express = require("express");
 const router_bssr = express.Router();
-const restaurantController =require("./controllers/restaurantControllers");
+const restaurantController = require("./controllers/restaurantControllers");
+const productController = require("./controllers/productController");
 
 /********************************
  *      BSSR EJS                *
@@ -22,6 +23,13 @@ router_bssr.get("/logout", restaurantController.logout);
 router_bssr.get("/check-me", restaurantController.checkSessions);
 
 router_bssr.get("/products/menu", restaurantController.getMyRestaurantData);
+router_bssr.post(
+  "/products/create",
+  restaurantController.validateAuthRestaurant,
+  productController.addNewProduct
+   
+);
+router_bssr.post("products/edit/:id", productController.updateChosenProduct);
 
 
 
