@@ -16,15 +16,17 @@ productController.getAllProducts = async (req, res) => {
 productController.addNewProduct = async(req,res) => {
   try {
       console.log("POST: cont/addNewProduct");
-  
+      //console.log(req.files)
       assert(req.files, Definer.general_err3);
 
       const product = new Product();
       let data = req.body;
-
+      console.log("dghgdhc", data.product_images);
       data.product_images = req.files.map((ele) => {
-          return ele.path;
+          return ele.path;//datani ichidagi pro_imagesni yozgan holda req.files dan olgan
+          //malumotlarni map qilib path ni qaytarib yubormoqchiman. maqsad uni databasega yozish
       });
+      
       
       const result = await product.addNewProductData(data, req.member);
 
@@ -46,6 +48,7 @@ productController.updateChosenProduct = async (req, res) => {
     console.log("POST: cont/updateChosenProduct");
     const product = new Product();
     const id = req.params.id;
+    //console.log(req)
     const result = await product.updateChosenProductData(id, req.body, req.member._id);
     await res.json({state: "success", data: result});
   } catch (err) {
