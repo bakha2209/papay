@@ -21,9 +21,9 @@ productController.addNewProduct = async(req,res) => {
 
       const product = new Product();
       let data = req.body;
-      console.log("dghgdhc", data.product_images);
+      //console.log("dghgdhc", data.product_images);
       data.product_images = req.files.map((ele) => {
-          return ele.path;//datani ichidagi pro_imagesni yozgan holda req.files dan olgan
+          return ele.path.replace(/\\/g, '/');//datani ichidagi pro_imagesni yozgan holda req.files dan olgan
           //malumotlarni map qilib path ni qaytarib yubormoqchiman. maqsad uni databasega yozish
       });
       

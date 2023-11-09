@@ -46,6 +46,11 @@
   width: 50px;
   height: 20px;
 }
+.switch input{
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
 .slider {
   position: absolute;
@@ -79,7 +84,7 @@ input:focus + .slider {
   box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked + .slider::before {
+input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -102,7 +107,7 @@ input:checked + .slider::before {
   background: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 8px;
-  font-family: "GT Walshein Pro";
+  font-family: "GT Walsheim Pro";
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
@@ -232,7 +237,7 @@ input:checked + .slider::before {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 
-  font-family: "GT Walshein Pro";
+  font-family: "GT Walsheim Pro";
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
@@ -252,7 +257,7 @@ input:checked + .slider::before {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 
-  font-family: "GT Walshein Pro";
+  font-family: "GT Walsheim Pro";
   font-style: normal;
   font-weight: 400;
   font-size: 15px;

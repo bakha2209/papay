@@ -193,6 +193,7 @@
     //product status changer
     $(".new_product_status").on("change", async function(e) {
       const id = e.target.id;
+      //console.log("id:", e.target);
       const product_status = $(`#${id}.new_product_status`).val();
       const mb_id = '<%= member._id %>';
 
@@ -203,7 +204,7 @@
 
         if(result.state == 'success') {
           alert('success');
-          location.reload();
+          //location.reload();
         } else {
           alert(result.message)
         }
