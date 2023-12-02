@@ -28,7 +28,7 @@ class View {
 
   async insertMemberView(view_ref_id, group_type) {
     try {
-      const new_view = new this.ViewModel({
+      const new_view = new this.viewModel({
         mb_id: this.mb_id,
         view_ref_id: view_ref_id,
         view_group: group_type,
