@@ -6,12 +6,21 @@ let productController = module.exports
 
 productController.getAllProducts = async (req, res) => {
   try {
-    console.log("GET: cont/getAllProducts")
+    console.log("POST: cont/getAllProducts");
+    const product = new Product();
+    const result = await product.getAllproductsData(req.member, req.body);
+    res.json({ state: "succeed", data: result });
   } catch (err) {
     console.log(`ERROR, cont/getAllProducts, ${err.message}`)
     res.json({state: 'fail', message: err.message})
-  } 
+
+  }
 }
+
+
+/****************************************
+ * BSSR RELATED METHODS
+ ****************************************/
 
 productController.addNewProduct = async(req,res) => {
   try {
@@ -56,3 +65,4 @@ productController.updateChosenProduct = async (req, res) => {
     res.json({state: 'fail', message: err.message}) 
   } 
 }
+
