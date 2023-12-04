@@ -2,6 +2,7 @@ const assert = require("assert");
 const { shapeIntoMongooseObjectId } = require("../lib/config");
 const Definer = require("../lib/mistake");
 const ProductModel = require("../schema/product.model");
+const Member = require("./Member");
 
 // controller=> product model servicega=>schema model(product modelga xizmat korsatadi)
 class Product {
@@ -23,7 +24,7 @@ class Product {
 
       const sort =
         data.order === "product_price"
-          ? { [data.order]: 1 }
+          ? { [data.order]: 1 } //elementni dynamic qiymati uchun
           : { [data.order]: -1 };
 
       const result = await this.productModel
@@ -35,10 +36,31 @@ class Product {
         ])
         .exec();
 
-      console.log(result) 
+      console.log(result);
       //todo: check auth member product likes
 
-      assert.ok(result, Definer.general_err1)  
+      assert.ok(result, Definer.general_err1);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getChosenProductData(member, id) {
+    try {
+      const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
+      id = shapeIntoMongooseObjectId(id);
+
+      if(member) {
+        const member_obj = new Member();
+        member_obj.viewChosenItemByMember(member, id, "product")
+      }
+
+      const result = await this.productModel
+        .aggregate([{ $match: { _id: id, product_status: "PROCESS" } }])
+        .exec();
+
+      assert.ok(result, Definer.general_err1);
       return result
     } catch (err) {
       throw err;
