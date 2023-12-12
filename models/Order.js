@@ -99,28 +99,50 @@ class Order {
         order_status = query.status.toUpperCase(),
         matches = { mb_id: mb_id, order_status: order_status };
 
-      const result = await this.orderModel.aggregate([
-        { $match: matches },
-        { $sort: { createdAt: -1 } },
-        {
-          $lookup: {
-            from: "orderitems",
-            localField: "_id",
-            foreignField: "order_id",
-            as: "order_items",
+      const result = await this.orderModel
+        .aggregate([
+          { $match: matches },
+          { $sort: { createdAt: -1 } },
+          {
+            $lookup: {
+              from: "orderitems",
+              localField: "_id",
+              foreignField: "order_id",
+              as: "order_items",
+            },
           },
-        },
-        {
-          $lookup: {
-            from: "products",
-            localField: "order_items.product_id",
-            foreignField: "_id",
-            as: "product_data",
+          {
+            $lookup: {
+              from: "products",
+              localField: "order_items.product_id",
+              foreignField: "_id",
+              as: "product_data",
+            },
           },
-        },
-      ]).exec();
-      console.log("req.query:", result)
-      return result
+        ])
+        .exec();
+      console.log("req.query:", result);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async editChosenOrderData(member, data) {
+    try {
+      const mb_id = shapeIntoMongooseObjectId(member._id),
+        order_id = shapeIntoMongooseObjectId(data.order_id),
+        order_status = data.order_status.toUpperCase();
+
+      const result = await this.orderModel.findOneAndUpdate(
+        { mb_id: mb_id, _id: order_id },
+        { order_status: order_status },
+        { runValidators: true, lean: true, returnDocument: "after" }
+      );
+      console.log(result);
+
+      assert.ok(result, Definer.order_err3);
+      return result;
     } catch (err) {
       throw err;
     }
