@@ -8,6 +8,7 @@ const orderSchema = new mongoose.Schema(
     order_delivery_cost: { type: Number, required: true },
     order_status: {
       type: String,
+      
       required: false,
       default: "PAUSED",
       enum: {
